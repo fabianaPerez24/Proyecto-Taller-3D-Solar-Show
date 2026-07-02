@@ -612,7 +612,7 @@ MonoBehaviour:
   NormalDialogueText: {fileID: 438541438}
   NameText: {fileID: 2066313159}
   Imagen: {fileID: 608430733}
-  RuntimeGraph: {fileID: 3965311268370046156, guid: 614fb2418d773b744803f3624a8bafbb, type: 3}
+  RuntimeGraph: {fileID: 3965311268370046156, guid: f6e77c4a0adb9814594b49bd547b946d, type: 3}
   OntriggerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -5127,7 +5127,7 @@ MonoBehaviour:
   NormalDialogueText: {fileID: 438541438}
   NameText: {fileID: 2066313159}
   Imagen: {fileID: 608430733}
-  RuntimeGraph: {fileID: 3965311268370046156, guid: 614fb2418d773b744803f3624a8bafbb, type: 3}
+  RuntimeGraph: {fileID: 3965311268370046156, guid: 9ed486760488f154c9087bda5a923f37, type: 3}
   OntriggerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -7447,7 +7447,7 @@ MonoBehaviour:
   NormalDialogueText: {fileID: 438541438}
   NameText: {fileID: 2066313159}
   Imagen: {fileID: 608430733}
-  RuntimeGraph: {fileID: 3965311268370046156, guid: 614fb2418d773b744803f3624a8bafbb, type: 3}
+  RuntimeGraph: {fileID: 3965311268370046156, guid: 366c42c744e8b4d47bdb48517b0b3a49, type: 3}
   OntriggerEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -8425,7 +8425,7 @@ MonoBehaviour:
   NormalDialogueText: {fileID: 438541438}
   NameText: {fileID: 2066313159}
   Imagen: {fileID: 608430733}
-  RuntimeGraph: {fileID: 3965311268370046156, guid: 614fb2418d773b744803f3624a8bafbb, type: 3}
+  RuntimeGraph: {fileID: 3965311268370046156, guid: f88906c357c396348ab65e298b1ce918, type: 3}
   OntriggerEnter:
     m_PersistentCalls:
       m_Calls:
