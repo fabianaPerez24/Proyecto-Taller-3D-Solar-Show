@@ -38,7 +38,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && _currentNode !=null && _currentNode.Choices.Count == 0)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && _currentNode !=null && _currentNode.Choices.Count == 0)
         {
             if(!string.IsNullOrEmpty(_currentNode.NextNodeID))
             {

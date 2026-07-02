@@ -30,7 +30,10 @@ public class DialogueNode : Node
         context.AddOutputPort("out").Build();
 
         context.AddInputPort<string>("Speaker").Build();
+        context.AddInputPort<Sprite>("SpriteCharacter").Build();
         context.AddInputPort<string>("Dialogue").Build();
+
+
     }
 }
 [Serializable]

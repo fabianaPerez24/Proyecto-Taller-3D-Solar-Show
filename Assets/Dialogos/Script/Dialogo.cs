@@ -1,17 +1,20 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-[System.Serializable]
-public struct Dialogue
-{
-    public Sprite sprite;
-    public string CharName;
-    [TextArea(4, 6)] public string line;
-}
+//[System.Serializable]
+//public struct Dialogue
+//{
+//    public Sprite sprite;
+//    public string CharName;
+//    [TextArea(4, 6)] public string line;
+//}
+
+
 public class Dialogo : MonoBehaviour
 {
     private bool didDialogueStart;
@@ -25,7 +28,11 @@ public class Dialogo : MonoBehaviour
     [SerializeField] private Image Imagen;
 
     [Header("Dialogos")]
-    [SerializeField] private Dialogue[] dialogueLine;
+    public RuntimeDialogueGraph RuntimeGraph;
+
+    private Dictionary<string, RuntimeDialogueNode> _nodeLookup = new Dictionary<string, RuntimeDialogueNode>();
+    private RuntimeDialogueNode _currentNode;
+    //[SerializeField] private Dialogue[] dialogueLine;
 
     [Header("Eventos")]
     [SerializeField] UnityEvent OntriggerEnter;
@@ -40,12 +47,21 @@ public class Dialogo : MonoBehaviour
     public AudioClip niftyVoice;
     public AudioClip Qwarkvoice;
     public AudioSource Robotvoice;
+
+
+    void Start()
+    {
+        foreach (var node in RuntimeGraph.AllNodes)
+        {
+            _nodeLookup[node.NodeID] = node;
+        }
+    }
     void Update()
     {
         if (didDialogueStart)
         {
 
-            if (NormalDialogueText.text == dialogueLine[lineaIndex].line)
+            if (NormalDialogueText.text == _currentNode.DialogueText)
             {
                 NextDialogueLine();
             }
@@ -56,7 +72,7 @@ public class Dialogo : MonoBehaviour
             //}
         }
 
-        if (lineaIndex == dialogueLine.Length) DialogueEndEvent.Invoke();
+        if (lineaIndex == _nodeLookup.Count) DialogueEndEvent.Invoke();
     }
 
     public void StartDialogue()
@@ -67,16 +83,16 @@ public class Dialogo : MonoBehaviour
 
         if (CanChangeTime) Time.timeScale = TimeScale; //afecta en el movimiento del player
 
-        StartCoroutine(ShowLine());
+        StartCoroutine(ShowLine(RuntimeGraph.EntryNodeID));
 
     }
 
     private void NextDialogueLine()
     {
         lineaIndex++;
-        if (lineaIndex < dialogueLine.Length)
+        if (lineaIndex < _nodeLookup.Count)
         {
-            StartCoroutine(ShowLine());
+            StartCoroutine(ShowLine(_currentNode.NextNodeID));
         }
 
         else
@@ -85,21 +101,22 @@ public class Dialogo : MonoBehaviour
         }
     }
 
-    private IEnumerator ShowLine()
+    private IEnumerator ShowLine(string NodeID)
     {
         if (lineaIndex != 0) yield return new WaitForSecondsRealtime(1f);
+        _currentNode = _nodeLookup[NodeID];
 
-        Imagen.sprite = dialogueLine[lineaIndex].sprite;
-        NameText.text = dialogueLine[lineaIndex].CharName;
+        Imagen.sprite = _currentNode.SpriteCharacter;
+        NameText.text = _currentNode.SpeakerName;
 
-        if(dialogueLine[lineaIndex].CharName == "Nifty")
+        if(_currentNode.SpeakerName == "Nifty")
         {
             Robotvoice.clip = niftyVoice;
 
             Robotvoice.Play();
         }
 
-        if(dialogueLine[lineaIndex].CharName == "Qwark")
+        if(_currentNode.SpeakerName == "Qwark")
         {
             Robotvoice.clip = Qwarkvoice;
 
@@ -108,7 +125,7 @@ public class Dialogo : MonoBehaviour
 
         NormalDialogueText.text = string.Empty;
 
-        foreach (char ch in dialogueLine[lineaIndex].line)
+        foreach (char ch in _currentNode.DialogueText)
         {
             NormalDialogueText.text += ch;
             yield return new WaitForSecondsRealtime(typingTime);
