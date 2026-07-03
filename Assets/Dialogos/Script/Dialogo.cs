@@ -58,6 +58,7 @@ public class Dialogo : MonoBehaviour
     }
     void Update()
     {
+        return;
         if (didDialogueStart)
         {
 
@@ -92,31 +93,46 @@ public class Dialogo : MonoBehaviour
         lineaIndex++;
         if (lineaIndex < _nodeLookup.Count)
         {
-            StartCoroutine(ShowLine(_currentNode.NextNodeID));
+            if (_currentNode != null)
+            {
+
+                StartCoroutine(ShowLine(_currentNode.NextNodeID));
+
+            }
+            else
+            {
+
+                StartCoroutine(LastDialogue());
+                DialogueEndEvent.Invoke();
+            }
         }
 
         else
         {
             StartCoroutine(LastDialogue());
+            DialogueEndEvent.Invoke();
         }
     }
 
     private IEnumerator ShowLine(string NodeID)
     {
         if (lineaIndex != 0) yield return new WaitForSecondsRealtime(1f);
-        _currentNode = _nodeLookup[NodeID];
-
+        if (_nodeLookup.TryGetValue(NodeID, out _currentNode) == false)
+        {
+            NextDialogueLine();
+            yield break;
+        }
         Imagen.sprite = _currentNode.SpriteCharacter;
         NameText.text = _currentNode.SpeakerName;
 
-        if(_currentNode.SpeakerName == "Nifty")
+        if (_currentNode.SpeakerName == "Nifty")
         {
             Robotvoice.clip = niftyVoice;
 
             Robotvoice.Play();
         }
 
-        if(_currentNode.SpeakerName == "Qwark")
+        if (_currentNode.SpeakerName == "Qwark")
         {
             Robotvoice.clip = Qwarkvoice;
 
@@ -130,6 +146,7 @@ public class Dialogo : MonoBehaviour
             NormalDialogueText.text += ch;
             yield return new WaitForSecondsRealtime(typingTime);
         }
+        NextDialogueLine();
     }
 
     private IEnumerator LastDialogue()
@@ -137,7 +154,7 @@ public class Dialogo : MonoBehaviour
         didDialogueStart = false;
         yield return new WaitForSecondsRealtime(2.5f);
 
-        if(canDisableCanva) dialoguePanel.SetActive(false);
+        if (canDisableCanva) dialoguePanel.SetActive(false);
 
         Time.timeScale = 1f;
 
@@ -148,16 +165,15 @@ public class Dialogo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             if (!didDialogueStart)
             {
                 StartDialogue();
 
-                if(OntriggerEnter != null)
-                OntriggerEnter.Invoke();
+                if (OntriggerEnter != null)
+                    OntriggerEnter.Invoke();
             }
         }
     }
-
 }
