@@ -6,15 +6,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-//[System.Serializable]
-//public struct Dialogue
-//{
-//    public Sprite sprite;
-//    public string CharName;
-//    [TextArea(4, 6)] public string line;
-//}
-
-
 public class Dialogo : MonoBehaviour
 {
     private bool didDialogueStart;
@@ -56,26 +47,6 @@ public class Dialogo : MonoBehaviour
             _nodeLookup[node.NodeID] = node;
         }
     }
-    void Update()
-    {
-        return;
-        if (didDialogueStart)
-        {
-
-            if (NormalDialogueText.text == _currentNode.DialogueText)
-            {
-                NextDialogueLine();
-            }
-            //else
-            //{ 
-            //    StopAllCoroutines(); 
-            //    dialogueText.text = dialogueLine[lineaIndex].line;
-            //}
-        }
-
-        if (lineaIndex == _nodeLookup.Count) DialogueEndEvent.Invoke();
-    }
-
     public void StartDialogue()
     {
         didDialogueStart = true;

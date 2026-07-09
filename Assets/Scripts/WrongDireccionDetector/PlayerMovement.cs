@@ -10,22 +10,37 @@ public class PlayerMovement : MonoBehaviour
     //public AlertaUI alertaUI;
     private void Awake()
     {
-        material = GetComponent<MeshRenderer>().material;
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        if (meshRenderer != null)
+        {
+            material = meshRenderer.material;
+        }
     }
 
     void Update()
     {
+        if (material == null || alerta == null || ListaDeCheckpoints.Instance == null)
+        {
+            return;
+        }
+
         CheckAngle();
     }
 
     void CheckAngle()
     {
-        Transform Checkpoint = ListaDeCheckpoints.Instance.GetCurrentCheckpoint().transform;
+        GameObject currentCheckpoint = ListaDeCheckpoints.Instance.GetCurrentCheckpoint();
+        if (currentCheckpoint == null)
+        {
+            return;
+        }
+
+        Transform Checkpoint = currentCheckpoint.transform;
         float angulo = Vector3.Dot(Checkpoint.forward, transform.right);
         if(angulo<-0.8)
         {
             material.color = Color.red;
-            alerta.UpdateText("Dirección Contraria");
+            alerta.UpdateText("Direccion Contraria");
         }
         else
         {

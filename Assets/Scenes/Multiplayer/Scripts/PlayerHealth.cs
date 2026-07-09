@@ -17,8 +17,15 @@ public class PlayerHealth : NetworkBehaviour
         UpdateHealthBar(currentHp.Value);
         if(IsOwner)
         {
-            LocalHealthUI.Instance.SetupPlayer(this);
-            WorldHpBar.SetActive(false);
+            if (LocalHealthUI.Instance != null)
+            {
+                LocalHealthUI.Instance.SetupPlayer(this);
+            }
+
+            if (WorldHpBar != null)
+            {
+                WorldHpBar.SetActive(false);
+            }
         }
 
         if (OwnerClientId % 2 == 0)
@@ -48,7 +55,10 @@ public class PlayerHealth : NetworkBehaviour
     }
     void UpdateHealthBar(int health)
     {
-        HPbar.fillAmount = (float)health / maxHP;
+        if (HPbar != null)
+        {
+            HPbar.fillAmount = (float)health / maxHP;
+        }
     }
     void Death()
         {

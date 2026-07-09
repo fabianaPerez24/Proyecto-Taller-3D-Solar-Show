@@ -15,6 +15,11 @@ public class LocalHealthUI : MonoBehaviour
     }
    public void SetupPlayer(PlayerHealth player)
     {
+        if (player == null)
+        {
+            return;
+        }
+
         playerHealth = player;
 
         playerHealth.currentHp.OnValueChanged += OnHealthChanged;
@@ -27,7 +32,10 @@ public class LocalHealthUI : MonoBehaviour
 
     void UpdateHealthBar(int health)
     {
-        hpBar.fillAmount = (float)health / maxHp;
+        if (hpBar != null)
+        {
+            hpBar.fillAmount = (float)health / maxHp;
+        }
     }
 
 }
