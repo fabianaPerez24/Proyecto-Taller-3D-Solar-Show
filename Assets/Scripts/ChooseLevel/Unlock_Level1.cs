@@ -13,7 +13,7 @@ public class Unlock_Level1 : BottonBlock
     void Awake()
     {
         Image = GetComponent<Image>();
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
         button.onClick.AddListener(ChooseLevel1);
         if (gameManager != null && gameManager.levels >= 1) { Image.sprite = miniatura; }
     }

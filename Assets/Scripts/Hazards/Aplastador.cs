@@ -17,11 +17,11 @@ public class Aplastador : MonoBehaviour
 
     public GameObject luz;
     [SerializeField] ParticleSystem Particulas;
-     private AudioSource audio;
+    private AudioSource audioSource;
 
     private void Start()
     {
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
 
         rb = GetComponent<Rigidbody>();
@@ -50,14 +50,14 @@ public class Aplastador : MonoBehaviour
                     DowCrusher(moveSpeedDePrevcion);
                 }
                 luz.SetActive(true);
-                audio.Play();
+                audioSource.Play();
 
                 inicio = false;
                 timeFalling += Time.deltaTime;
                 yield return null;
             }
 
-            while (!inicio )
+            while (!inicio)
             {
                 luz.SetActive(false);
                 UpCrushed();
@@ -87,7 +87,7 @@ public class Aplastador : MonoBehaviour
             isFalling = false;
 
             player.velocidadActual = 0;
-            player.rb.velocity = Vector3.zero;
+            player.rb.linearVelocity = Vector3.zero;
             player.onStun = true;
             player.Invoke("OffStun", 1f);
         }
