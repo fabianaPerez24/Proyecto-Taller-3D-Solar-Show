@@ -5,7 +5,7 @@ using TMPro;
 
 public class GetBestTimeLevelController : MonoBehaviour
 {
-    private const string url = "http://192.168.1.15/Progra2026/Solar_show/get_best_time_level.php";
+    private const string url = "http://192.168.0.167/Progra2026/Solar_show/get_best_time_level.php";
 
     public void GetBestTime(int levelId, TMP_Text resultText)
     {

@@ -5,7 +5,7 @@ using TMPro;
 
 public class InsertLevelTimeController : MonoBehaviour
 {
-    private const string url = "http://192.168.1.15/Progra2026/Solar_show/insert_level_time.php";
+    private const string url = "http://192.168.0.167/Progra2026/Solar_show/insert_level_time.php";
 
     public void SaveTime(int playerId, int levelId, int time, TMP_Text resultText)
     {
