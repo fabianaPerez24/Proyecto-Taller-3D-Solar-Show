@@ -5,7 +5,7 @@ using TMPro;
 
 public class GetPlayerTimeController : MonoBehaviour
 {
-    private const string url = "http://localhost/Progra2026/Solar_show/get_player_total_time.php";
+    private const string url = "http://192.168.1.15/Progra2026/Solar_show/get_player_total_time.php";
 
     public void GetPlayerTime(TMP_Text resultText)
     {

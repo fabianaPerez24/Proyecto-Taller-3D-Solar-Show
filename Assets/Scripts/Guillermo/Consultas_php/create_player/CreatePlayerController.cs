@@ -4,7 +4,7 @@ using System.Collections;
 
 public class CreatePlayerController : MonoBehaviour
 {
-    private const string url = "http://localhost/Progra2026/Solar_show/create_player.php";
+    private const string url = "http://192.168.1.15/Progra2026/Solar_show/create_player.php";
 
     public void CreateNewPlayer(PlayerIdManager manager)
     {
